@@ -4,6 +4,7 @@
   "mime":       null,
   "icon":       "categories/applications-system.png",
   "singular":   true,
+  "category": "development",
   "build":      {
     "copy": [
       "scheme.html",
