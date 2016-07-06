@@ -1,0 +1,16 @@
+{
+  "className":  "ApplicationWebsocketTest",
+  "name":       "WebsocketTest",
+  "mime":       null,
+  "icon":       "categories/applications-system.png",
+  "config": {
+    "port": "8001"
+  },
+  "preload":    [
+    "main.js",
+    "main.css"
+  ]
+}
+
+
+
