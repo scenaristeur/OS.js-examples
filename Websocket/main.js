@@ -34,8 +34,8 @@
   // WINDOWS
   /////////////////////////////////////////////////////////////////////////////
 
-  function ApplicationWebsocketTestWindow(app, metadata, scheme) {
-    Window.apply(this, ['ApplicationWebsocketTestWindow', {
+  function ApplicationWebsocketWindow(app, metadata, scheme) {
+    Window.apply(this, ['ApplicationWebsocketWindow', {
       icon: metadata.icon,
       title: metadata.name,
       width: 400,
@@ -43,25 +43,25 @@
     }, app, scheme]);
   }
 
-  ApplicationWebsocketTestWindow.prototype = Object.create(Window.prototype);
-  ApplicationWebsocketTestWindow.constructor = Window.prototype;
+  ApplicationWebsocketWindow.prototype = Object.create(Window.prototype);
+  ApplicationWebsocketWindow.constructor = Window.prototype;
 
-  ApplicationWebsocketTestWindow.prototype.init = function(wmRef, app, scheme) {
+  ApplicationWebsocketWindow.prototype.init = function(wmRef, app, scheme) {
     var root = Window.prototype.init.apply(this, arguments);
     var self = this;
 
-    scheme.render(this, 'WebsocketTestWindow', root);
+    scheme.render(this, 'WebsocketWindow', root);
 
     this._find('Button').son('click', this, this.onClick);
 
     return root;
   };
 
-  ApplicationWebsocketTestWindow.prototype.onClick = function() {
+  ApplicationWebsocketWindow.prototype.onClick = function() {
     this._app.send({action: 'clock'});
   };
 
-  ApplicationWebsocketTestWindow.prototype.onMessage = function(data) {
+  ApplicationWebsocketWindow.prototype.onMessage = function(data) {
     this._find('Response').set('value', String(data.clock));
   };
 
@@ -69,16 +69,16 @@
   // APPLICATION
   /////////////////////////////////////////////////////////////////////////////
 
-  function ApplicationWebsocketTest(args, metadata) {
-    Application.apply(this, ['ApplicationWebsocketTest', args, metadata]);
+  function ApplicationWebsocket(args, metadata) {
+    Application.apply(this, ['ApplicationWebsocket', args, metadata]);
 
     this.websocket = null;
   }
 
-  ApplicationWebsocketTest.prototype = Object.create(Application.prototype);
-  ApplicationWebsocketTest.constructor = Application;
+  ApplicationWebsocket.prototype = Object.create(Application.prototype);
+  ApplicationWebsocket.constructor = Application;
 
-  ApplicationWebsocketTest.prototype.destroy = function() {
+  ApplicationWebsocket.prototype.destroy = function() {
     if ( this.websocket ) {
       this.websocket.close();
     }
@@ -87,14 +87,14 @@
     return Application.prototype.destroy.apply(this, arguments);
   };
 
-  ApplicationWebsocketTest.prototype.init = function(settings, metadata) {
+  ApplicationWebsocket.prototype.init = function(settings, metadata) {
     Application.prototype.init.apply(this, arguments);
 
     var self = this;
     var url = 'ws' + (window.location.protocol === 'https:' ? 's' : '') + '://' + window.location.hostname + ':' + metadata.config.port;
 
     this._loadScheme('./scheme.html', function(scheme) {
-      var win = self._addWindow(new ApplicationWebsocketTestWindow(self, metadata, scheme));
+      var win = self._addWindow(new ApplicationWebsocketWindow(self, metadata, scheme));
 
       self.websocket = new WebSocket(url);
       self.websocket.onmessage = function(ev) {
@@ -103,7 +103,7 @@
     });
   };
 
-  ApplicationWebsocketTest.prototype.send = function(data) {
+  ApplicationWebsocket.prototype.send = function(data) {
     if ( this.websocket ) {
       this.websocket.send(JSON.stringify(data));
     }
@@ -114,7 +114,7 @@
   /////////////////////////////////////////////////////////////////////////////
 
   OSjs.Applications = OSjs.Applications || {};
-  OSjs.Applications.ApplicationWebsocketTest = OSjs.Applications.ApplicationWebsocketTest || {};
-  OSjs.Applications.ApplicationWebsocketTest.Class = Object.seal(ApplicationWebsocketTest);
+  OSjs.Applications.ApplicationWebsocket = OSjs.Applications.ApplicationWebsocket || {};
+  OSjs.Applications.ApplicationWebsocket.Class = Object.seal(ApplicationWebsocket);
 
 })(OSjs.Core.Application, OSjs.Core.Window, OSjs.Utils, OSjs.API, OSjs.VFS, OSjs.GUI);

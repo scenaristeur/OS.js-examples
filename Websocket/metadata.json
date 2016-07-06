@@ -1,6 +1,6 @@
 {
-  "className":  "ApplicationWebsocketTest",
-  "name":       "WebsocketTest",
+  "className":  "ApplicationWebsocket",
+  "name":       "Websocket",
   "mime":       null,
   "icon":       "categories/applications-system.png",
   "config": {
