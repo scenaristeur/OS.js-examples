@@ -1,0 +1,4 @@
+*.swp
+*.swo
+source/node_modules/*
+source/typings

@@ -1,0 +1,31 @@
+{
+  "className":  "ApplicationAngular",
+  "name":       "Angular",
+  "mime":       null,
+  "icon":       "categories/applications-system.png",
+  "singular":   true,
+  "build":      {
+    "copy": [
+      "scheme.html",
+      "metadata.json",
+      "main.js",
+      "main.css",
+      "app",
+      "source/node_modules"
+    ]
+  },
+  "preload":    [
+    {"src": "source/node_modules/es6-shim/es6-shim.min.js", "type": "javascript", "combine": false},
+    {"src": "source/node_modules/systemjs/dist/system-polyfills.js", "type": "javascript", "combine": false},
+    {"src": "source/node_modules/angular2/es6/dev/src/testing/shims_for_IE.js", "type": "javascript", "combine": false},
+    {"src": "source/node_modules/angular2/bundles/angular2-polyfills.js", "type": "javascript", "combine": false},
+    {"src": "source/node_modules/systemjs/dist/system.src.js", "type": "javascript", "combine": false},
+    {"src": "source/node_modules/rxjs/bundles/Rx.js", "type": "javascript", "combine": false},
+    {"src": "source/node_modules/angular2/bundles/angular2.dev.js", "type": "javascript", "combine": false},
+    {"src": "main.js", "type": "javascript"},
+    {"src": "main.css", "type": "stylesheet"}
+  ]
+}
+
+
+
