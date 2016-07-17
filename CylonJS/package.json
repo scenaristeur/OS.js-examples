@@ -1,0 +1,10 @@
+{
+  "name": "CylonJS",
+  "dependencies": {
+    "ws.js": "latest",
+    "cylon": "latest",
+    "cylon-gpio": "latest",
+    "cylon-i2c": "latest",
+    "cylon-intel-iot": "latest"
+  }
+}

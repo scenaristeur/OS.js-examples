@@ -1,0 +1,17 @@
+{
+  "className":  "ApplicationCylonJS",
+  "name":       "CylonJS",
+  "category": "development",
+  "mime":       null,
+  "icon":       "categories/applications-system.png",
+  "config": {
+    "port": "8002"
+  },
+  "preload":    [
+    "main.js",
+    "main.css"
+  ]
+}
+
+
+
