@@ -17,10 +17,6 @@ An Angular2 example app. See README in this folder for more info.
 
 A simple server/client websocket example
 
-## SimplerApplication
-
-An example making applications without all the noise.
-
 ## CylonJS
 
 Application using Cylon to communicate with Arduino and other devices.
