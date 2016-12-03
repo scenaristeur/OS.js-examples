@@ -35,17 +35,17 @@
   /////////////////////////////////////////////////////////////////////////////
 
   var connections = {
-    edison: { adaptor: 'intel-iot' }
+    edison: {adaptor: 'intel-iot'}
   };
 
   var devices = {
-    temp: { driver: 'analog-sensor', pin: 0 },
-    knob: { driver: 'analog-sensor', pin: 1 },
-    sound: { driver: 'analog-sensor', pin: 2 },
-    light: { driver: 'analog-sensor', pin: 3 },
-    button: { driver: 'button', pin: 4 },
-    led: { driver: 'led', pin: 13 },
-    lcd: { driver: 'jhd1313m1'}
+    temp: {driver: 'analog-sensor', pin: 0},
+    knob: {driver: 'analog-sensor', pin: 1},
+    sound: {driver: 'analog-sensor', pin: 2},
+    light: {driver: 'analog-sensor', pin: 3},
+    button: {driver: 'button', pin: 4},
+    led: {driver: 'led', pin: 13},
+    lcd: {driver: 'jhd1313m1'}
   };
 
   var handlers = (function() {
@@ -113,8 +113,11 @@
   // APPLICATION
   /////////////////////////////////////////////////////////////////////////////
 
-  module.exports._onServerStart = function(server, instance, metadata) {
-    var wss = new WebsocketServer({server: server, port: metadata.config.port});
+  module.exports.api = {};
+
+  // This is called whenever the HTTP server starts up
+  module.exports.register = function(env, metadata, servers) {
+    var wss = new WebsocketServer({server: servers.httpServer, port: metadata.config.port});
 
     wss.on('connection', function(ws) {
       //console.log('!!!', 'WS', 'Opened connection');

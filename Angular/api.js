@@ -30,8 +30,10 @@
 (function() {
   'use strict';
 
-  // See http://os.js.org/doc/tutorials/application-with-server-api.html
-  module.exports = {
+  module.exports.api = {
+    test: function(env, http, resolve, reject, args) {
+      resolve('test');
+    }
   };
 
 })();

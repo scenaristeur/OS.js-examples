@@ -32,14 +32,15 @@
 
   var wss;
 
-  // See http://os.js.org/doc/tutorials/application-with-server-api.html
-  module.exports.test = function(args, callback, request, response) {
-    callback(false, 'test');
+  module.exports.api = {
+    test: function(env, http, resolve, reject, args) {
+      resolve('test');
+    }
   };
 
   // This is called whenever the HTTP server starts up
-  module.exports._onServerStart = function(server, instance, metadata) {
-    wss = new WebsocketServer({server: server, port: metadata.config.port});
+  module.exports.register = function(env, metadata, servers) {
+    wss = new WebsocketServer({server: servers.httpServer, port: metadata.config.port});
 
     wss.on('connection', function(ws) {
       console.log('!!!', 'WS', 'Opened connection');
