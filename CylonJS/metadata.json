@@ -8,6 +8,7 @@
     "port": "8002"
   },
   "preload":    [
+    {"src": "scheme.html", "type": "scheme"},
     "main.js",
     "main.css"
   ]

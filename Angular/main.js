@@ -51,7 +51,7 @@
     var self = this;
 
     // Load and set up scheme (GUI) here
-    scheme.render(this, 'AngularWindow', root);
+    this._render('AngularWindow');
 
     return root;
   };
@@ -101,13 +101,10 @@
     return Application.prototype.destroy.apply(this, arguments);
   };
 
-  ApplicationAngular.prototype.init = function(settings, metadata) {
+  ApplicationAngular.prototype.init = function(settings, metadata, scheme) {
     Application.prototype.init.apply(this, arguments);
 
-    var self = this;
-    this._loadScheme('./scheme.html', function(scheme) {
-      self._addWindow(new ApplicationAngularWindow(self, metadata, scheme));
-    });
+    this._addWindow(new ApplicationAngularWindow(this, metadata, scheme));
   };
 
   /////////////////////////////////////////////////////////////////////////////

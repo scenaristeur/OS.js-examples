@@ -53,7 +53,7 @@
     var root = Window.prototype.init.apply(this, arguments);
     var self = this;
 
-    scheme.render(this, 'CylonJSWindow', root);
+    this._render('CylonJSWindow');
 
     var c = this._find('ButtonLCDColor');
     c.on('click', function(ev) {
@@ -127,31 +127,29 @@
     return Application.prototype.destroy.apply(this, arguments);
   };
 
-  ApplicationCylonJS.prototype.init = function(settings, metadata) {
+  ApplicationCylonJS.prototype.init = function(settings, metadata, scheme) {
     Application.prototype.init.apply(this, arguments);
 
     var self = this;
     var url = 'ws' + (window.location.protocol === 'https:' ? 's' : '') + '://' + window.location.hostname + ':' + metadata.config.port;
 
-    this._loadScheme('./scheme.html', function(scheme) {
-      var win = self._addWindow(new ApplicationCylonJSWindow(self, metadata, scheme));
+    var win = this._addWindow(new ApplicationCylonJSWindow(this, metadata, scheme));
 
-      var interval;
-      self.websocket = new WebSocket(url);
-      self.websocket.onclose = function(ev) {
-        interval = clearInterval(interval);
-      };
+    var interval;
+    this.websocket = new WebSocket(url);
+    this.websocket.onclose = function(ev) {
+      interval = clearInterval(interval);
+    };
 
-      self.websocket.onmessage = function(ev) {
-        win.onMessage(JSON.parse(ev.data));
-      };
+    this.websocket.onmessage = function(ev) {
+      win.onMessage(JSON.parse(ev.data));
+    };
 
-      self.websocket.onopen = function(ev) {
-        interval = setInterval(function() {
-          self.send({action: 'sensors'});
-        }, 1000);
-      };
-    });
+    this.websocket.onopen = function(ev) {
+      interval = setInterval(function() {
+        self.send({action: 'sensors'});
+      }, 1000);
+    };
   };
 
   ApplicationCylonJS.prototype.send = function(data) {

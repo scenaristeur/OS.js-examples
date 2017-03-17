@@ -23,6 +23,7 @@
     {"src": "source/node_modules/systemjs/dist/system.src.js", "type": "javascript", "combine": false},
     {"src": "source/node_modules/rxjs/bundles/Rx.js", "type": "javascript", "combine": false},
     {"src": "source/node_modules/angular2/bundles/angular2.dev.js", "type": "javascript", "combine": false},
+    {"src": "scheme.html", "type": "scheme"},
     {"src": "main.js", "type": "javascript"},
     {"src": "main.css", "type": "stylesheet"}
   ]

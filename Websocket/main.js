@@ -48,9 +48,8 @@
 
   ApplicationWebsocketWindow.prototype.init = function(wmRef, app, scheme) {
     var root = Window.prototype.init.apply(this, arguments);
-    var self = this;
 
-    scheme.render(this, 'WebsocketWindow', root);
+    this._render('WebsocketWindow');
 
     this._find('Button').son('click', this, this.onClick);
 
@@ -87,20 +86,17 @@
     return Application.prototype.destroy.apply(this, arguments);
   };
 
-  ApplicationWebsocket.prototype.init = function(settings, metadata) {
+  ApplicationWebsocket.prototype.init = function(settings, metadata, scheme) {
     Application.prototype.init.apply(this, arguments);
 
-    var self = this;
     var url = 'ws' + (window.location.protocol === 'https:' ? 's' : '') + '://' + window.location.hostname + ':' + metadata.config.port;
 
-    this._loadScheme('./scheme.html', function(scheme) {
-      var win = self._addWindow(new ApplicationWebsocketWindow(self, metadata, scheme));
+    var win = this._addWindow(new ApplicationWebsocketWindow(this, metadata, scheme));
 
-      self.websocket = new WebSocket(url);
-      self.websocket.onmessage = function(ev) {
-        win.onMessage(JSON.parse(ev.data));
-      };
-    });
+    this.websocket = new WebSocket(url);
+    this.websocket.onmessage = function(ev) {
+      win.onMessage(JSON.parse(ev.data));
+    };
   };
 
   ApplicationWebsocket.prototype.send = function(data) {
